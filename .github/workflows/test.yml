@@ -1,0 +1,28 @@
+name: UnitTesting
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: '^1.14.4'
+
+    - name: Golang version
+      run: go version
+
+    - uses: actions/checkout@v2
+
+    - name: Running unit tests
+      uses: ./.github/actions/go-make-action
+      with:
+        target: 'test'
+
